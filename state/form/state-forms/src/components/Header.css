@@ -1,0 +1,11 @@
+.navbar {
+    background-color: lightslategrey;
+    text-align: center;
+}
+
+.headline {
+    padding: 40px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: xxx-large;
+}

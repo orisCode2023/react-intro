@@ -1,0 +1,10 @@
+const btn = document.body.querySelector('button')
+
+function fetchD () {
+    fetch("http://localhost:3000/data")
+    .then(res => res.json())
+    .then(data => console.log(data))
+    
+}
+
+btn.addEventListener('click', fetchD())

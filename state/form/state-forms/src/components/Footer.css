@@ -1,0 +1,11 @@
+.footer-name{
+    background-color: lightslategrey;
+    text-align: center;
+}
+
+.footer-context {
+    padding: 40px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: x-large;
+}
