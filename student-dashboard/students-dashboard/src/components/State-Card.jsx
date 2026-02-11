@@ -2,9 +2,12 @@ import './State-Card.css'
 
 import React from 'react'
 
-function StateCard() {
+function StateCard({value, info}) {
   return (
-    <div>State-card</div>
+    <div className='state-card'>
+        <p>{value}</p>
+        <p>{info}</p>
+    </div>
   )
 }
 

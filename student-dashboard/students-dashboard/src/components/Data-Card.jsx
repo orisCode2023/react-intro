@@ -1,10 +1,8 @@
 import './Data-Card.css'
 
-import React from 'react'
-
-function DataCard() {
+function DataCard({name, age, greade, isOnline, subject}) {
   return (
-    <div>Data-Card</div>
+    <div></div>
   )
 }
 
