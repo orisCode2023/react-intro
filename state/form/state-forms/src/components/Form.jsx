@@ -8,7 +8,7 @@ function Form() {
         email: '',
         password: ''
     })
-
+ 
     function handleChange(e) {
         const { value, name } = e.target
         setForm(prev => ({ ...prev, [name]: value }))
