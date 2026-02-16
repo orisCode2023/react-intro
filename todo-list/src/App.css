@@ -1,0 +1,9 @@
+.Dark {
+    background-color: darkgray;
+    color: white;
+}
+
+.Light {
+    background-color: white;
+    color: black;
+}

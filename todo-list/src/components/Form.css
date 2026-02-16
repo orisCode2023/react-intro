@@ -1,0 +1,26 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+.main form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+input {
+    padding: 10px;
+}
+
+.context{
+    padding: 10px;
+}
+option {
+    text-align: center;
+}
+
+
+

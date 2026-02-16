@@ -3,3 +3,18 @@ nav {
     justify-content: space-between;
     background-color: lightgray;
 }
+.left-side {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.left-side p{
+    margin-right: 15px;
+}
+
+.left-side button {
+    padding: 8px;
+}

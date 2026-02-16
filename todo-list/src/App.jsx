@@ -6,12 +6,14 @@ import TodosProvider from './contexts/TodosContext'
 
 function App() {
   return (
-    <>
-      <TodosProvider>
+
+    <TodosProvider>
+
         <Header />
         <Form />
-      </TodosProvider>
-    </>
+     
+    </TodosProvider>
+
   )
 }
 

@@ -1,12 +1,27 @@
-import { createContext, useState } from "react"
+import { createContext, useRef, useState } from "react"
+import { utilsForm } from "../utils/utilsForm"
 
 export const TodosContext = createContext()
 
 function TodosProvider({ children }) {
-    const [todos, setTodos] = useState([])
+    const dataUtilsForm = utilsForm()
+    const [mode, setMode] = useState('Dark')
 
-    return <TodosContext.Provider value={{ todos, setTodos }}>
-        {...children}
+    function bgMode() {
+        if (mode === 'Dark') {
+            setMode('Light')
+        } else {
+            setMode('Dark')
+        }
+    }
+
+    const value = {
+        bgMode,
+        mode, ...dataUtilsForm
+    }
+
+    return <TodosContext.Provider value={value}>
+        {children}
     </TodosContext.Provider>
 }
 
