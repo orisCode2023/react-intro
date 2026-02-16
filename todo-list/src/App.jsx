@@ -1,19 +1,16 @@
-import { useState, createContext } from 'react'
 import Form from './components/Form'
 import Header from './components/Header'
 import './App.css'
+import TodosProvider from './contexts/TodosContext'
 
-export const TodosContext = createContext()
 
 function App() {
-  const todos = useState([])
-
   return (
     <>
-      <TodosContext.Provider value={todos}>
+      <TodosProvider>
         <Header />
         <Form />
-      </TodosContext.Provider>
+      </TodosProvider>
     </>
   )
 }

@@ -1,17 +1,17 @@
 import './Header.css'
-import { TodosContext } from '../App'
+import { TodosContext } from '../contexts/TodosContext'
 import { useContext } from 'react'
 
 function Header() {
 
-    const [todosList] = useContext(TodosContext)
+    const { todos } = useContext(TodosContext)
 
     return (
         <>
             <nav>
                 <h1>Todo App</h1>
                 <div className='left-side'>
-                    <p>{`Total Todos: ${todosList.length}`} </p>
+                    <p>{`Total Todos: ${todos.length}`} </p>
                     <button>Dark Mode</button>
                 </div>
             </nav>
