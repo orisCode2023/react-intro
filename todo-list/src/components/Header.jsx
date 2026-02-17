@@ -10,7 +10,7 @@ function Header() {
             <h1>Todo App</h1>
             <div className='left-side'>
                 <p>{`Total Todos: ${todos.length}`} </p>
-                <button className={mode} onClick={bgMode} >{mode} Mode</button>
+                <button className={mode} onClick={bgMode} >{mode === 'Dark' ? 'Light': 'Dark'} Mode</button>
             </div>
         </nav>
     )

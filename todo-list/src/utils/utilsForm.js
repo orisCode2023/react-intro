@@ -4,7 +4,7 @@ export function utilsForm() {
     const [todos, setTodos] = useState([])
     const [oneTodo, setOneTodo] = useState({
         title: "",
-        priority: 'low'
+        priority: 'Low'
     })
 
     const formRef = useRef(null)
