@@ -1,6 +1,8 @@
 import express from 'express';
 import routerComplaint from './routes/complaints.routes.js';
+import connectDB from './db/connect.js'
 
+connectDB()
 
 const app = express();
 const PORT = process.env.PORT || 3000;
