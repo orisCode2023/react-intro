@@ -3,8 +3,9 @@ import Card from "./Card";
 import { useContext } from "react";
 import "./Form.css";
 
+
 function Form() {
-  const { mode, formRef, oneTodo, handelSubmit, reset, handleChange } =
+  const { mode, formRef, handelSubmit, reset, handleChange } =
     useContext(TodosContext);
 
   return (
@@ -18,7 +19,6 @@ function Form() {
           </label>
           <input
             className="context"
-            defaultValue={oneTodo.title}
             type="text"
             name="title"
             id="title"
@@ -30,7 +30,6 @@ function Form() {
           </label>
           <select
             className="context"
-            defaultValue={oneTodo.priority}
             id="level"
             name="priority"
           >
@@ -46,10 +45,6 @@ function Form() {
             clear
           </button>
         </form>
-        <Card>
-          <p>{oneTodo.title} {oneTodo.priority}</p>
-          <button>delete</button>
-        </Card>
       </div>
     </div>
   );

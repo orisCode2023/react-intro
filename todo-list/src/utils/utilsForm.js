@@ -2,10 +2,9 @@ import { useRef, useState } from "react";
 
 export function utilsForm() {
     const [todos, setTodos] = useState([])
-    const [oneTodo, setOneTodo] = useState({
-        title: "",
-        priority: 'Low'
-    })
+    const [counter, setCounter] = useState(0)
+    const [oneTodo, setOneTodo] = useState()
+    const [posts, setPosts] = useState(null)
 
     const formRef = useRef(null)
 
@@ -17,21 +16,35 @@ export function utilsForm() {
 
     }
 
+    function postsMode() {
+        if (posts === 'Posts') {
+            setPosts('Todos')
+        } else {
+            setPosts('Posts')
+        }
+    }
+
     function handleChange(e) {
         e.preventDefault();
         const { name, value } = e.target;
         setOneTodo({ ...oneTodo, [name]: value });
+        console.log(oneTodo)
+    }
+    function removeTodo(itemToRemove) {
+        const newTodosList = todos.filter(todo => todo.id !== itemToRemove)
+        setTodos(newTodosList)
     }
 
     function addTodo() {
-        setTodos([...todos, oneTodo]);
+        setTodos(todos => [...todos, { ...oneTodo, id: counter }]);
+        setCounter(counter => counter + 1)
     }
 
     function reset(e) {
         e.preventDefault();
-        setOneTodo({ title: "", priority: "low" });
+        setOneTodo({ title: "", priority: "Low" });
         Array.from(formRef.current.children).forEach(child => child.value = '')
     }
 
-    return { handelSubmit, handleChange, addTodo, reset, todos, setTodos, oneTodo, setOneTodo, formRef }
+    return { postsMode, posts, handelSubmit, handleChange, addTodo, reset, todos, setTodos, removeTodo, oneTodo, setOneTodo, formRef }
 }
