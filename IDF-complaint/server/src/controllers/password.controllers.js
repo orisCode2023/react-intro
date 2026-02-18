@@ -1,4 +1,3 @@
-import { createComplaintService } from "../services/complaints.service.js";
 import { createPasswordService } from "../services/Password.service.js";
 
 export async function createPasswordController(req, res){
