@@ -1,0 +1,39 @@
+body {
+    background-color: "0f0f0";
+}
+
+.green{
+    background: rgb(26, 231, 26);
+}
+.blue {
+    background-color: rgb(58, 188, 253);
+}
+nav {
+    text-align: center;
+    font-size: x-large;
+    background-color: bisque;
+    border-bottom: 1px solid lightgray;
+    padding: 5px;
+}
+.submit-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 3px solid gray;
+}
+.submit-box h2 {
+    border-bottom: 1px solid lightgray;
+}
+.submit-box Form {
+    text-align: center;
+}
+
+
+.submit-box input {
+    border: 1px solid black;
+    text-align: center;
+    width: 30%;
+    display: block;
+    margin: 10px;
+}
