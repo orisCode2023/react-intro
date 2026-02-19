@@ -2,7 +2,7 @@ import { useState } from "react"
 
 
 function ComplaintForm() {
-    const [complaint, setcomplaint] = useState(second)
+    const [complaint, setcomplaint] = useState('')
     return (
         <>
             <div>

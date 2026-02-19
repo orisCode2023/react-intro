@@ -16,10 +16,7 @@ function App() {
       <Route path='/admin'>
         <Route path='complaints' element={<ComplaintTable />} />
         <Route path='login' element={<AdminLoginPage />} />
-
-      </Route>
-      
-      
+      </Route>  
     </Routes>
     </>
   )
