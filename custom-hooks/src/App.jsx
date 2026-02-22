@@ -2,6 +2,7 @@ import './App.css'
 import Toggle from './pages/toggle'
 import Counter from './pages/Counter'
 import Input from './pages/Input'
+import TextArea from './pages/TextArea'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
     <Toggle />
     <Counter />
     <Input />
+    <TextArea />
     </>
   )
 }
