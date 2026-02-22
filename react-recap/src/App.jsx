@@ -1,33 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Alert from './components/Alert'
+import Box from './components/Box'
+import DismissibleAlert from './components/DismissibleAlert'
+import GreetButton from './components/GreetButton'
+import List from './components/List'
+import Section from './components/Section'
+import UserCard from './components/UserCard'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <UserCard
+      name = "json"
+      age = { 28 }
+      occupation = "software developer" />   
+   
+   <Box>
+    <h2>Title</h2>
+    <p>Lorem, ipsum dolor.</p>
+   </Box>
+   <Box>Hello there</Box>
+   <GreetButton 
+   name='ori'
+   context= "click me" />
+   <DismissibleAlert 
+   title={"Notic"}
+   message={'something happened'}
+   onDismiss={() => alert('alert dismiss')}
+   />
+   <Alert message={"something went wrong"}/>
+   <Section title={'about'}>
+    <p>This is the about section.</p>
+   </Section>
+   <Section>
+    <p>section has no title</p>
+   </Section>
+   <List title={'fruit list'}
+   items={['orange', 'apple', 'banana']}/>
     </>
   )
 }
