@@ -1,0 +1,162 @@
+Overview
+Mental model of useEffect:
+After React paints the UI, useEffect lets you synchronize your component with the outside world (timers, network, browser APIs, logging, etc.) based on state/props changes.
+You’ll work through a ladder of exercises:
+Basic “run after render” + dependency array
+Syncing external values (like document.title) with state
+Fetching data correctly with useEffect
+Subscriptions & cleanup (events, intervals)
+Controlled side effects (debounce, race conditions)
+Extracting logic into a custom hook
+For each, I’ll say why useEffect and why not another hook.
+
+
+Exercise 1 – First render vs. every render
+Goal: Understand when effects run and how the dependency array changes behavior.
+Task:
+Make a simple component with a count state and a button to increment it.
+Add three different effects:
+useEffect(() => { console.log('A'); });
+useEffect(() => { console.log('B'); }, []);
+useEffect(() => { console.log('C', count); }, [count]);
+Click the button several times and watch what logs when.
+What to pay attention to:
+Which effect runs:
+On every render (no dependency array),
+Only on mount ([]),
+When count changes ([count]).
+Why useEffect here?
+You’re learning that useEffect runs after React commits the DOM, not during render.
+This is exactly the pattern for “do something because this value changed”.
+Why not another hook?
+useState only stores values; it doesn’t run side effects.
+useMemo computes pure values during render, not side effects.
+Only useEffect is meant for “after render, do X”.
+
+
+Exercise 2 – Sync document.title with state
+Goal: See how to keep external state (the browser tab title) in sync with React state.
+Task:
+Reuse your count component.
+In an effect with [count] as deps, set document.title = "Count: " + count.
+Observe the tab title changing as you click.
+What to pay attention to:
+The title updates every time count changes, and only then.
+Your component code stays clean; the side effect is isolated in the effect.
+Why useEffect here?
+document.title is outside React. It won’t change just because your state changed; you must imperatively sync it.
+useEffect is built for “whenever X changes, perform an imperative update to the outside world”.
+Why not another hook?
+useState can’t talk to document by itself.
+useMemo/useCallback are for computing values/functions, not calling imperative APIs.
+useLayoutEffect could work but is usually overkill here; you don’t need to block paint. useEffect is preferred unless you specifically need to run before the browser paints.
+
+
+Exercise 3 – Fetch data on mount and when a query changes
+Goal: Use useEffect for async work and see how dependency arrays control when to fetch.
+Task:
+Create a component with:
+query state (text input),
+data, isLoading, error state.
+Add an effect like:
+Deps: [query].
+Inside: set isLoading true, fetch from some public API using query, then update data and isLoading false, handle errors.
+Start with a default query, then change the input and see new data load.
+What to pay attention to:
+The fetch runs:
+Once on mount (because query initially has a value),
+On every query change.
+Render is pure: it just shows data/loading state. All side-effecting async work is in the effect.
+Why useEffect here?
+Network requests are side effects: they touch the outside world and are async.
+You want them to happen in reaction to state/props changes, not every render.
+useEffect lets you coordinate:
+Start loading,
+Kick off fetch,
+Update state based on response.
+Why not another hook?
+Doing fetch directly in the render body would run on every render, causing infinite loops or duplicate requests.
+useMemo might look tempting, but it should stay pure; running fetch in useMemo is an anti-pattern.
+useEffect is the canonical place for async data loading tied to component lifecycle.
+
+
+Exercise 4 – Event listener with cleanup (e.g. window resize)
+Goal: Learn that effects can set up and tear down subscriptions, and why cleanup is crucial.
+Task:
+Make a component that shows the current window width.
+Use useState to store width, initialize with window.innerWidth.
+Add an effect with [] that:
+Adds a resize listener that updates width.
+Returns a cleanup function that removes the listener.
+Mount/unmount the component (e.g. with a conditional in a parent) and verify:
+When unmounted, the resize listener no longer runs.
+What to pay attention to:
+Without cleanup, multiple listeners can stack up if the component mounts/unmounts.
+The effect runs on mount; the cleanup runs on unmount (and before the effect re-runs if deps change).
+Why useEffect here?
+Adding/removing event listeners is a classic side effect.
+You need to tie the listener’s lifecycle to the component’s lifecycle.
+The cleanup function is exactly for this: unsubscribe / dispose.
+Why not another hook?
+No other built-in hook provides a “run this when unmounts” pattern.
+useState only stores values, cannot cleanup.
+useMemo doesn’t have a cleanup phase.
+useEffect is designed for setup + cleanup patterns.
+
+
+Exercise 5 – Debounced search with useEffect and setTimeout
+Goal: Use useEffect to control timing and cancel work when dependencies change.
+Task:
+Start from Exercise 3’s search component.
+Add state: debouncedQuery.
+Use an effect with [query] that:
+Sets a setTimeout (e.g. 500ms) to update debouncedQuery = query.
+Returns a cleanup that clearTimeout on dependency change/unmount.
+Change your data-fetching effect to depend on [debouncedQuery] instead of query.
+What to pay attention to:
+Typing quickly: the fetch only fires after you stop typing for 500ms.
+The cleanup cancels pending timeouts, preventing multiple unnecessary requests.
+Why useEffect here?
+Debouncing is about reacting to changes with a delay and cancellation.
+useEffect lets you:
+Start a timeout when query changes,
+Cancel the previous timeout when query changes again,
+Run side-effect (updating debouncedQuery) only when the delay completes.
+Why not another hook?
+useState doesn’t manage time or cancellation.
+useMemo can’t schedule or cancel work; it’s for synchronous computations.
+useEffect is the right place to glue React state with browser timing APIs.
+
+
+Exercise 6 – Build a custom hook with useEffect (e.g. useOnlineStatus)
+Goal: Learn when to move effect logic into a reusable custom hook, and how useEffect fits inside.
+Task:
+Implement useOnlineStatus:
+Internal isOnline state.
+useEffect that:
+Initializes isOnline from navigator.onLine.
+Subscribes to window.addEventListener('online', ...) and 'offline'.
+Cleans them up on unmount.
+Returns isOnline.
+Use this hook in two different components:
+One that shows a banner when offline.
+Another that disables a button when offline.
+What to pay attention to:
+You can reuse the same effect-based side effect logic across components.
+The UI components don’t know about event listeners; they just read isOnline.
+Why useEffect here?
+You’re still dealing with external events and subscriptions.
+The custom hook is just a function that uses existing hooks, including useEffect, to encapsulate that logic.
+Why not another hook?
+A custom hook is how you reuse logic, but inside the hook you still need useEffect for side effects.
+No other primitive hook handles “subscribe to browser events and cleanup” as cleanly.
+How to use these exercises
+Do each exercise fully (actually write the code), not just mentally.
+For every effect you write, ask:
+What state/props does this effect depend on? (these go in the dependency array)
+What external thing am I syncing with?
+What needs cleanup when this component or subscription goes away?
+Could this be solved without a side effect (pure computation)? If yes, maybe it should be useMemo or computed inline instead.
+If you want, paste your solution for any one exercise and I’ll review it, explain if the effect is necessary there, and compare it to alternative hooks in your specific code.
+
+
