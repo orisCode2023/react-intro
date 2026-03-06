@@ -1,0 +1,10 @@
+[
+  { "id": 1, "name": "Alice Chen",    "department": "Engineering", "role": "Senior Dev",    "salary": 95000, "status": "Active"   },
+  { "id": 2, "name": "Bob Martinez",  "department": "Design",      "role": "UX Designer",   "salary": 78000, "status": "Active"   },
+  { "id": 3, "name": "Carol White",   "department": "Engineering", "role": "Junior Dev",    "salary": 62000, "status": "Active"   },
+  { "id": 4, "name": "David Kim",     "department": "Marketing",   "role": "SEO Specialist","salary": 55000, "status": "Inactive" },
+  { "id": 5, "name": "Eva Rossi",     "department": "Design",      "role": "Brand Designer","salary": 72000, "status": "Active"   },
+  { "id": 6, "name": "Frank Okafor",  "department": "Engineering", "role": "DevOps",        "salary": 88000, "status": "Active"   },
+  { "id": 7, "name": "Grace Liu",     "department": "Marketing",   "role": "Content Lead",  "salary": 61000, "status": "Inactive" },
+  { "id": 8, "name": "Hiro Tanaka",   "department": "Engineering", "role": "Senior Dev",    "salary": 97000, "status": "Active"   }
+]
